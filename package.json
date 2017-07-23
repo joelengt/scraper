@@ -61,6 +61,7 @@
 		"lodash": "4.17.4",
 		"method-override": "^2.3.9",
 		"moment": "2.18.1",
+		"mongoose": "^4.11.4",
 		"morgan": "^1.8.1",
 		"multer": "^0.1.8",
 		"mysql": "2.13.0",
