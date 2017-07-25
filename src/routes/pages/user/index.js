@@ -9,13 +9,6 @@ router.get('/list', async (req, res) => {
     debug('tock')
     let users = await Users.find()
 
-    if (!users.length) {
-      let payload = {success: false, items: []}
-      return res['404'](payload, 'users not registered on db')
-    }
-
-    debug('Users', users)
-
     return res.render('./user/list', {
       users: users
     })
