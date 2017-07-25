@@ -1,4 +1,5 @@
 const debug = require('debug')('assistance-service:controllers:application-face')
+import Users from '~/src/models/users'
 import {microsoftCognitiveService} from '~/src/services'
 
 class FaceIndetifyAppication {
@@ -19,8 +20,7 @@ class FaceIndetifyAppication {
 
       // // Face API - Detect Service
       let fieldsDetect = {
-        url: 'https://scontent.flim2-1.fna.fbcdn.net/v/t1.0-9/15747598_1345729892146112_374717885659646740_n.jpg?oh=f0227aa38301ae70e8c023d90aba84d2&oe=5A10B045'
-        // url: photoURL
+        url: photoURL
       }
       let serviceDetect = await microsoftCognitiveService.faceDetect(fieldsDetect)
       debug('DETECT RESPONSE ->>', serviceDetect)
@@ -32,17 +32,37 @@ class FaceIndetifyAppication {
 
       // Face API - Identify Service
       let fieldsIdentify = {
-        personGroupId: '1_worker',
+        personGroupId: 'workers',
         faceIds: [`${serviceDetect.data[0].faceId}`]
       }
 
       let serviceIdentify = await microsoftCognitiveService.faceIdentify(fieldsIdentify)
-      debug('DETECT RESPONSE ->>', serviceIdentify)
+      debug('Identify RESPONSE ->>', serviceIdentify)
+
+      if (!serviceIdentify.success) {
+        let payload = serviceDetect
+        return res[`${payload.statusCode}`](payload.data, 'Service Identify fail!')
+      }
+
+      if (!serviceIdentify.data[0].candidates.length) {
+        let payload = serviceDetect
+        return res[`${payload.statusCode}`](payload.data, 'Face Not Registered')
+      }
 
       // TODO: Find user on db where candidates[0].personId
+      let user = await Users.findOne({'personIDMicrosoftCognitive': serviceIdentify.data[0].candidates[0].personId})
 
-      let payload = serviceIdentify
-      return res[`${payload.statusCode}`](payload.data, 'Face Detec success!')
+      if (!user) {
+        let payload = {success: false}
+        return res['404'](payload, 'User Not Found!')
+      }
+
+      let payload = {
+        success: true,
+        user: user
+      }
+
+      return res['200'](payload, 'Face Identify success!')
     } catch (err) {
       let payload = err
       return res['500'](payload, 'Face upload error!')

@@ -76,6 +76,7 @@
 		"require-self-ref": "^2.0.1",
 		"sinon": "^2.3.4",
 		"snake-case": "^2.1.0",
+		"socket.io": "^2.0.3",
 		"uuid": "3.0.1"
 	},
 	"devDependencies": {

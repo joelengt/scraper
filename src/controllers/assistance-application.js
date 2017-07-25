@@ -1,10 +1,10 @@
 import Users from '~/src/models/users'
-// import {NotificationTrigger} from '~/src/utils'
-// var io = require('socket.io')(3000)
+import {NotificationTrigger} from '~/src/utils'
+var io = require('socket.io')(4444)
 
 // Ejecutar funcion de enviar notificacion
-// var notificatePush = new NotificationTrigger(io)
-// notificatePush.connect()
+var notificatePush = new NotificationTrigger(io)
+notificatePush.connect()
 
 const debug = require('debug')('assistance-service:controllers:Assistance')
 
@@ -33,7 +33,7 @@ class AssistanceOverview {
             }
 
             // Evento socket.io
-            // notificatePush.notificar(userSaved)
+            notificatePush.notificar(userSaved)
 
             res.status(200).json({
               status: 'new_check',

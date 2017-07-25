@@ -158,8 +158,7 @@ class User {
       var fullUrl = `${req.protocol}://${req.get('host')}`
       let photoPublicURL = `${fullUrl}${photo.path}`
       let data = {
-        url: 'https://scontent.flim2-1.fna.fbcdn.net/v/t1.0-9/15747598_1345729892146112_374717885659646740_n.jpg?oh=f0227aa38301ae70e8c023d90aba84d2&oe=5A10B045'
-        // url: photoPublicURL
+        url: photoPublicURL
       }
       let personAddFace = await microsoftCognitiveService.personAddFace(personGroupID, personID, data)
       if (!personAddFace.success) {
