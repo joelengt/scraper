@@ -82,7 +82,7 @@ class User {
         .pipe(file(`${userSaved._id}.png`))
 
       // Create a Person on Microsoft cognitive Service Microsoft cognitive - Person
-      let personGroupID = 'workers'
+      let personGroupID = 'workersteam'
       let body = {
         name: userSaved.fullName,
         userData: 'user created on microsoft Cognitive Service'
@@ -152,7 +152,7 @@ class User {
       }
 
       // add face to Person Microsoft Cognitive
-      let personGroupID = 'workers'
+      let personGroupID = 'workersteam'
       let personID = userSaved.personIDMicrosoftCognitive
 
       var fullUrl = `${req.protocol}://${req.get('host')}`

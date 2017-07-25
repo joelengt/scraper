@@ -32,7 +32,7 @@ class FaceIndetifyAppication {
 
       // Face API - Identify Service
       let fieldsIdentify = {
-        personGroupId: 'workers',
+        personGroupId: 'workersteam',
         faceIds: [`${serviceDetect.data[0].faceId}`]
       }
 
