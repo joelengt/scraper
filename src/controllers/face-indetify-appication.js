@@ -48,9 +48,11 @@ class FaceIndetifyAppication {
         let payload = serviceDetect
         return res[`${payload.statusCode}`](payload.data, 'Face Not Registered')
       }
+      debug('Termino servicios ->>')
 
       // TODO: Find user on db where candidates[0].personId
       let user = await Users.findOne({'personIDMicrosoftCognitive': serviceIdentify.data[0].candidates[0].personId})
+      debug('USER', user)
 
       if (!user) {
         let payload = {success: false}
