@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+    meta(charset="UTF-8")
+    title QR Lector
+
+    link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+
+    style.
+        body {
+            margin: 10px
+        }
+
+        form {
+            background: lightgray;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            max-width: 300px;
+        }
+
+        form div {
+            padding-bottom: 1rem;
+        }
+
+        form input {
+            display: block;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        article .left, article .right {
+            display: inline-block;
+            vertical-align: top;
+            width: 45%;
+        }
+
+        article figure {
+            margin-right: 1.2rem;
+        }
+
+        article figure, article .code_qr {
+            display: inline-block;
+        }
+
+
+        .sectionLeft, .usersList {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .sectionLeft {
+            width: 40%;
+        }
+
+        .usersList {
+            width: 50%;
+        }
+body
+    h3 Check users status
+
+    div(class="usersList")
+        each user in users
+            article
+                div(class="left")
+                    h3 #{user.full_name}
+                    figure
+                        img(src="../../../images/avatar.png" width="100")
+                div(class="right")
+                    p #[strong dni:] #{user.dni}
+                    p #[strong username:] @#{user.username}
+                    p #[strong status:] #{user.status_connect}
+                    p #[strong Hora Entrada:] #{user.hora_entrada}
+                hr
+
+    script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js")
+    script(src="../../../js/index.min.js")

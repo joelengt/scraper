@@ -89,6 +89,7 @@ class MicrosoftCognitiveService {
     }
   }
 
+  // Person Group
   async personGroupList () {
     try {
       let response = await microsoftCognitiveRepository.personGroupList()
@@ -152,6 +153,7 @@ class MicrosoftCognitiveService {
     }
   }
 
+  // Person
   async personCreate (personGroupID, data) {
     let fields = {
       name: data.name,

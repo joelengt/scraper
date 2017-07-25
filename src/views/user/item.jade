@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+    meta(charset="UTF-8")
+    title QR Lector
+
+    link(rel='stylesheet', href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+
+    style.
+        body {
+            margin: 10px
+        }
+
+        form {
+            background: lightgray;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            max-width: 300px;
+        }
+
+        form div {
+            padding-bottom: 1rem;
+        }
+
+        form input {
+            display: block;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        article .left, article .right {
+            display: inline-block;
+            vertical-align: top;
+            width: 45%;
+        }
+
+        article figure {
+            margin-right: 1.2rem;
+        }
+
+        article figure, article .code_qr {
+            display: inline-block;
+        }
+
+
+        .sectionLeft, .usersList {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .sectionLeft {
+            width: 40%;
+        }
+
+        .usersList {
+            width: 50%;
+        }
+
+
+
+
+body
+    nav
+        ul
+            li
+                a(href="/users/list") Atras
+
+    h2 Lista de usuarios
+
+    div(class="sectionLeft")
+        div(class="formRegister")
+            h3 Update Usuario
+            form(action="/api/users" method="post")
+                div
+                    label Nombre
+                    input(type="text" name="names")
+                div
+                    label Apellido
+                    input(type="text" name="lastNames")
+                div
+                    label DNI
+                    input(type="number" name="dni")
+                div
+                    label email
+                    input(type="email" name="email")
+                div
+                    button(class="btn btn-success") Update
+            hr
+
+    div(class="usersList")
+      article
+          div(class="left")
+              h3 #{user.fullName}
+              figure
+                  img(src="../../images/avatar.png" width="100")
+              div(class="code_qr")
+                  img(src="../../qrs/#{user._id}.png")
+          div(class="right")
+              p #[strong Nombre:] #{user.names}
+              p #[strong Apellidos:] #{user.lastNames}
+              p #[strong dni:] #{user.dni}
+              p #[strong email:] #{user.email}
+              p #[strong username:] @#{user.username}
+              p #[strong permiso:] #{user.permiso}
+              p #[strong status:] #{user.statusConnect}
+              p #[strong fecha de registro:] #{user.fechaCreada}
+          hr
+      article
+        h2 fotos
+        div
+          h4 Add foto
+          form(action="/api/users/#{user._id}?_method=put", method="post", enctype="multipart/form-data")
+            div
+              label Upload photo
+              input(type="file", name="photo")
+            div
+              button Send
+
+        each photo in user.photo
+          p #{photo.name}
+          img(src="#{photo.path}")
+          hr

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  title Document
+body
+  div
+    h2 Update photo to user
+    form(action="/api/users/5976969fad285909b78d8d88?_method=put", method="post", enctype="multipart/form-data")
+      div
+        label Upload photo
+        input(type="file", name="photo")
+      div
+        button Send

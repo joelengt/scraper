@@ -5,7 +5,8 @@ const photoSchema = new Schema({
   path: { type: String, required: true },
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: 'users',
+    required: true
   },
   name: { type: String },
   fechaCreada: { type: Date, default: Date.now }

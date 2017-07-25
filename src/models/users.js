@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
+  uuid: { type: String, required: true },
   names: { type: String, required: true },
   lastNames: { type: String, required: true },
   fullName: { type: String },
@@ -9,6 +10,7 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'photos'
   }],
+  personIDMicrosoftCognitive: { type: String },
   dni: { type: String },
   email: { type: String },
   username: { type: String },

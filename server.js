@@ -15,8 +15,10 @@ debug('Server starting ENV =>', process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'production') {
   require('babel-polyfill')
   require('dotenv').config({path: envPath})
+  require('~/src/initializers/mongodb')
   require('~/dist/index')
 } else {
   require('dotenv').config()
+  require('~/src/initializers/mongodb')
   require('~/src/index')
 }
