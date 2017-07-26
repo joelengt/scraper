@@ -1,7 +1,13 @@
-const debug = require('debug')('assistance-service:controllers:application-face')
 import Users from '../models/users'
 import {microsoftCognitiveService} from '../services'
+import {NotificationTrigger} from '../utils'
+var io = require('socket.io')(4444)
 
+// Ejecutar funcion de enviar notificacion
+var notificatePush = new NotificationTrigger(io)
+notificatePush.connect()
+
+const debug = require('debug')('assistance-service:controllers:application-face')
 class FaceIndetifyAppication {
   async identify (req, res) {
     try {
@@ -58,6 +64,15 @@ class FaceIndetifyAppication {
       if (!user) {
         let payload = {success: false}
         return res['404'](payload, 'User Not Found!')
+      }
+
+      // update user statusConnectFace
+      user.statusConnectFace = true
+      await user.save()
+
+      // Evento socket.io
+      if (user.statusConnectQR === true && user.statusConnectFace === true) {
+        notificatePush.notificar(user)
       }
 
       let payload = {

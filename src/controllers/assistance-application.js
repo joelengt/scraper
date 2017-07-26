@@ -1,10 +1,10 @@
 import Users from '../models/users'
-import {NotificationTrigger} from '../utils'
-var io = require('socket.io')(4444)
+// import {NotificationTrigger} from '../utils'
+// var io = require('socket.io')(4444)
 
 // Ejecutar funcion de enviar notificacion
-var notificatePush = new NotificationTrigger(io)
-notificatePush.connect()
+// var notificatePush = new NotificationTrigger(io)
+// notificatePush.connect()
 
 const debug = require('debug')('assistance-service:controllers:Assistance')
 
@@ -22,9 +22,9 @@ class AssistanceOverview {
 
       if (user !== null) {
         // si el usuario fue encontrado
-        if (user.statusConnect === false) {
+        if (user.statusConnectQR === false) {
           // cambiar su estado a true
-          user.statusConnect = true
+          user.statusConnectQR = true
           user.horaEntrada = new Date()
 
           user.save((err, userSaved) => {
@@ -33,7 +33,9 @@ class AssistanceOverview {
             }
 
             // Evento socket.io
-            notificatePush.notificar(userSaved)
+            // if (user.statusConnectQR === true && user.statusConnectFace === true) {
+            //   notificatePush.notificar(userSaved)
+            // }
 
             res.status(200).json({
               status: 'new_check',
@@ -62,7 +64,7 @@ class AssistanceOverview {
       }
 
       for (var i = 0; i <= users.length - 1; i++) {
-        users[i].statusConnect = false
+        users[i].statusConnectQR = false
         users[i].save((err, result) => {
           if (err) {
             return debug(err)

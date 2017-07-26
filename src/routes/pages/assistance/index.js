@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/list/check', async (req, res) => {
   try {
     debug('tock')
-    let users = await Users.find({statusConnect: true})
+    let users = await Users.find({'statusConnectQR': true, 'statusConnectFace': true})
 
     return res.render('./assistance/status', {
       users: users

@@ -20,7 +20,8 @@ const userSchema = new Schema({
   refrestToken: { type: String },
   fechaCreada: { type: Date, default: Date.now },
   horaEntrada: { type: Date, default: Date.now },
-  statusConnect: { type: Boolean, default: false }
+  statusConnectQR: { type: Boolean, default: false },
+  statusConnectFace: { type: Boolean, default: false }
 })
 
 const users = mongoose.model('users', userSchema)
