@@ -1,7 +1,7 @@
-import MicrosoftCognitive from '~/src/controllers/api-microsoft-cognitive'
-import FaceIndetifyAppication from '~/src/controllers/face-indetify-appication'
-import User from '~/src/controllers/users'
-import AssistanceOverview from '~/src/controllers/assistance-application'
+import MicrosoftCognitive from './api-microsoft-cognitive'
+import FaceIndetifyAppication from './face-indetify-appication'
+import User from './users'
+import AssistanceOverview from './assistance-application'
 
 const microsoftCognitive = new MicrosoftCognitive()
 const faceIndetifyAppication = new FaceIndetifyAppication()

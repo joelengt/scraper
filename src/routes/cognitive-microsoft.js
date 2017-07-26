@@ -1,4 +1,4 @@
-import {microsoftCognitive} from '~/src/controllers'
+import {microsoftCognitive} from '/controllers'
 import express from 'express'
 const router = express.Router()
 

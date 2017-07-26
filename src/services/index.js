@@ -1,4 +1,4 @@
-import MicrosoftCognitiveService from '~/src/services/microsoft-cognitive'
+import MicrosoftCognitiveService from './microsoft-cognitive'
 const microsoftCognitiveService = new MicrosoftCognitiveService()
 
 export default {

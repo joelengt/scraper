@@ -1,4 +1,4 @@
-import {assistanceOverview} from '~/src/controllers'
+import {assistanceOverview} from '/controllers'
 import express from 'express'
 const router = express.Router()
 

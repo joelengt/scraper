@@ -1,6 +1,5 @@
+import {microsoftCognitiveRepository} from '../repository'
 const debug = require('debug')('assistance-service:services:microsoft-cognitive')
-
-import {microsoftCognitiveRepository} from '~/src/repository'
 
 class MicrosoftCognitiveService {
   // Face

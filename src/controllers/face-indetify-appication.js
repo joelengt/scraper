@@ -1,6 +1,6 @@
 const debug = require('debug')('assistance-service:controllers:application-face')
-import Users from '~/src/models/users'
-import {microsoftCognitiveService} from '~/src/services'
+import Users from '../models/users'
+import {microsoftCognitiveService} from '../services'
 
 class FaceIndetifyAppication {
   async identify (req, res) {

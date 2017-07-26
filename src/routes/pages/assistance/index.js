@@ -1,5 +1,5 @@
 import express from 'express'
-import Users from '~/src/models/users'
+import Users from '/models/users'
 
 const debug = require('debug')('assistance-service:pages:assistance')
 const router = express.Router()

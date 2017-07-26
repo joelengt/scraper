@@ -1,5 +1,5 @@
-import Users from '~/src/models/users'
-import {NotificationTrigger} from '~/src/utils'
+import Users from '../models/users'
+import {NotificationTrigger} from '../utils'
 var io = require('socket.io')(4444)
 
 // Ejecutar funcion de enviar notificacion

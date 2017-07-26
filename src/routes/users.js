@@ -1,4 +1,4 @@
-import {user} from '~/src/controllers'
+import {user} from '/controllers'
 import express from 'express'
 const router = express.Router()
 

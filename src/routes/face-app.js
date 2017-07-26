@@ -1,4 +1,4 @@
-import {faceIndetifyAppication} from '~/src/controllers'
+import {faceIndetifyAppication} from '/controllers'
 import express from 'express'
 const router = express.Router()
 

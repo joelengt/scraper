@@ -1,10 +1,10 @@
-import apiCognitiveMicrosoft from '~/src/routes/cognitive-microsoft'
-import apiAssistance from '~/src/routes/assistance'
-import applicationFace from '~/src/routes/face-app'
-import home from '~/src/routes/pages/home'
-import users from '~/src/routes/users'
-import usersView from '~/src/routes/pages/user'
-import checkAssistance from '~/src/routes/pages/assistance'
+import apiCognitiveMicrosoft from '../routes/cognitive-microsoft'
+import apiAssistance from '../routes/assistance'
+import applicationFace from '../routes/face-app'
+import home from '../routes/pages/home'
+import users from '../routes/users'
+import usersView from '../routes/pages/user'
+import checkAssistance from '../routes/pages/assistance'
 
 const debug = require('debug')('assistance-service:routes')
 

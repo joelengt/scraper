@@ -1,11 +1,11 @@
 {
 	"private": true,
 	"license": "MIT",
+	"author": "Joel Gonzales",
 	"scripts": {
-		"start": "node dist/index.js",
-		"prebuild": "shx rm -rf dist && shx mkdir -p dist",
+		"start": "DEBUG=assistance-service:* NODE_ENV=production node server.js",
+		"clean": "rm -rf dist && mkdir dist",
 		"build": "cross-env NODE_ENV=production babel src -d dist",
-		"postbuild": "npm run start",
 		"build:watch": "cross-env DEBUG=assistance-service:* NODE_ENV=development nodemon ./server.js --exec 'babel-node'",
 		"dev": "npm run build:watch",
 		"dev:inspect": "npm run build:watch -- --inspect",
@@ -74,6 +74,7 @@
 		"qr-image": "^3.2.0",
 		"redis": "latest",
 		"require-self-ref": "^2.0.1",
+		"rootpath": "^0.1.2",
 		"sinon": "^2.3.4",
 		"snake-case": "^2.1.0",
 		"socket.io": "^2.0.3",
