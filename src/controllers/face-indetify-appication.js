@@ -62,7 +62,8 @@ class FaceIndetifyAppication {
 
       let payload = {
         success: true,
-        user: user
+        user: user,
+        candidates: serviceIdentify.data[0]
       }
 
       return res['200'](payload, 'Face Identify success!')

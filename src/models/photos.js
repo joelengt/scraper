@@ -9,6 +9,7 @@ const photoSchema = new Schema({
     required: true
   },
   name: { type: String },
+  faceIDMicrosoftCognitive: { type: String },
   fechaCreada: { type: Date, default: Date.now }
 })
 

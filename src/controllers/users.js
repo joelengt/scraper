@@ -166,6 +166,13 @@ class User {
       }
       debug('Add face to person', personAddFace)
 
+      // updated faceID on photo
+      photoSaved.faceIDMicrosoftCognitive = personAddFace.data.persistedFaceId
+      let photoUpdated = await photoSaved.save()
+      if (!photoUpdated) {
+        return res['400']({success: false}, 'photo not updated')
+      }
+
       res.ok({success: true, user: userSaved}, 'add photo to user success')
     } catch (err) {
       let payload = {success: false, error: err}
