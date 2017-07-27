@@ -1,11 +1,11 @@
-import Users from '../models/users'
-import Photos from '../models/photos'
+import Users from '/models/users'
+import Photos from '/models/photos'
 import jwt from 'jsonwebtoken'
 import qr from 'qr-image'
 import fs from 'fs'
 import uuid from 'uuid'
 
-import {microsoftCognitiveService} from '../services'
+import {microsoftCognitiveService} from '/services'
 const debug = require('debug')('assistance-service:controllers:users')
 
 function file (name) {

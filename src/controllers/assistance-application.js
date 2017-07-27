@@ -1,4 +1,4 @@
-import Users from '../models/users'
+import Users from '/models/users'
 // import {NotificationTrigger} from '../utils'
 // var io = require('socket.io')(4444)
 

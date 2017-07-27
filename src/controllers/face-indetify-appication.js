@@ -1,6 +1,6 @@
-import Users from '../models/users'
-import {microsoftCognitiveService} from '../services'
-import {NotificationTrigger} from '../utils'
+import Users from '/models/users'
+import {microsoftCognitiveService} from '/services'
+import {NotificationTrigger} from '/utils'
 var io = require('socket.io')(4444)
 
 // Ejecutar funcion de enviar notificacion

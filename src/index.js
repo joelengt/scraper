@@ -5,7 +5,7 @@ import methodOverride from 'method-override'
 import path from 'path'
 import multer from 'multer'
 
-// require('rootpath')()
+require('rootpath')()
 
 var debug = require('debug')('assistance-service:index')
 const app = express()

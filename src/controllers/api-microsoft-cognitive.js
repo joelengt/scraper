@@ -1,4 +1,4 @@
-import {microsoftCognitiveService} from '../services'
+import {microsoftCognitiveService} from '/services'
 const debug = require('debug')('assistance-service:controllers:microsoft-cognitive')
 
 class MicrosoftCognitive {
