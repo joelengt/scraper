@@ -65,6 +65,7 @@ class AssistanceOverview {
 
       for (var i = 0; i <= users.length - 1; i++) {
         users[i].statusConnectQR = false
+        users[i].statusConnectFace = false
         users[i].save((err, result) => {
           if (err) {
             return debug(err)
