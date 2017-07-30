@@ -43,7 +43,7 @@ plan.remote(function (remote) {
   remote.sudo(`ln -snf ~/${folder} ~/${app}`, {user})
 
   remote.log('Install dependencies')
-  remote.sudo(`cd ~/${app} && npm i`, {user})
+  remote.sudo(`cd ~/${app} && npm install`, {user})
 
   remote.log('Create folder dist')
   remote.sudo(`cd ~/${app} && npm run dist`, user)
@@ -58,5 +58,5 @@ plan.remote(function (remote) {
   remote.sudo(`pm2 delete ${app}`, {user, failsafe: true})
 
   remote.log(`Boot up new ${app} version`)
-  remote.sudo(`cd ~/${app} && pm2 start run.sh`, user)
+  remote.sudo(`cd ~/${app} && pm2 start run.sh -n ${app}`, user)
 })
