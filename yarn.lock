@@ -1128,6 +1128,10 @@ cliui@^3.2.0:
     strip-ansi "^3.0.1"
     wrap-ansi "^2.0.0"
 
+clor@^5.0.1:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/clor/-/clor-5.2.0.tgz#9ddc74e7e86728cfcd05a80546ba58d317b81035"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -2109,7 +2113,7 @@ fd-slicer@~1.0.1:
   dependencies:
     pend "~1.2.0"
 
-fibers@^1.0.10:
+fibers@1.0.15:
   version "1.0.15"
   resolved "https://registry.yarnpkg.com/fibers/-/fibers-1.0.15.tgz#22f039c8f18b856190fbbe4decf056154c1eae9c"
 
@@ -2232,13 +2236,13 @@ flat@^2.0.0, flat@^2.0.1:
   dependencies:
     is-buffer "~1.1.2"
 
-flightplan@0.6.15:
-  version "0.6.15"
-  resolved "https://registry.yarnpkg.com/flightplan/-/flightplan-0.6.15.tgz#f8dff79554a02daff87f1c584aaf7ac7477c846c"
+flightplan@^0.6.17:
+  version "0.6.17"
+  resolved "https://registry.yarnpkg.com/flightplan/-/flightplan-0.6.17.tgz#c0a0547d89648cdcccdc9e7ef260a74e1a8987ee"
   dependencies:
     byline "^4.2.1"
     chalk "^1.1.1"
-    fibers "^1.0.10"
+    fibers "1.0.15"
     interpret "^1.0.0"
     liftoff "^2.2.0"
     nopt "^3.0.4"
@@ -2272,6 +2276,16 @@ flow-typed@^2.1.2:
     unzip "^0.1.11"
     which "^1.2.11"
     yargs "^4.2.0"
+
+fly@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/fly/-/fly-2.0.6.tgz#77aa3c94e8e30ed235e06e91973f135dd55e03bd"
+  dependencies:
+    bluebird "^3.5.0"
+    clor "^5.0.1"
+    glob "^7.1.1"
+    minimist "^1.2.0"
+    mkdirp "^0.5.1"
 
 follow-redirects@^1.2.3:
   version "1.2.3"
