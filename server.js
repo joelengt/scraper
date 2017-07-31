@@ -6,7 +6,7 @@ const path = require('path')
 const home = require('os').homedir()
 const envPath = path.join(home, '.env')
 
-debug('Server starting ENV =>', process.env.NODE_ENV)
+debug('The server starting ENV =>', process.env.NODE_ENV)
 
 if (process.env.NODE_ENV === 'production') {
   require('dotenv').config()
