@@ -21,6 +21,7 @@
 		"public": "shx rm -rf public && shx mkdir public",
 		"dist": "shx rm -rf dist && shx mkdir dist",
 		"build": "cross-env NODE_ENV=production babel src -d dist",
+    "env:production": "shx rm .env.production && shx cp .env.example .env.production",
 		"start": "DEBUG=assistance-service:* NODE_ENV=production node server.js",
 		"deploy:production": "fly production"
 	},
