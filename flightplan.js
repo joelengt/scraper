@@ -45,6 +45,9 @@ plan.remote(function (remote) {
   remote.log('Install dependencies')
   remote.sudo(`cd ~/${app} && npm install`, {user})
 
+  remote.log('Copy .env to production')
+  remote.sudo(`cd ~/${app} && cp .env.production .env`, {user})
+
   remote.log('Create folder dist')
   remote.sudo(`cd ~/${app} && npm run dist`, user)
 
