@@ -47,7 +47,7 @@ plan.remote(function (remote) {
 
   remote.log('Copy .env to production')
   remote.sudo(`cd ~/${app} && cp .env.production .env`, {user})
-  remote.rm(`~/${app}/.env.production`)
+  // remote.rm(`~/${app}/.env.production`)
 
   remote.log('Create folder dist')
   remote.sudo(`cd ~/${app} && npm run dist`, user)
