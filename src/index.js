@@ -3,7 +3,6 @@ import bodyParser from 'body-parser'
 import logger from 'morgan'
 import methodOverride from 'method-override'
 import path from 'path'
-import multer from 'multer'
 
 require('rootpath')()
 
@@ -28,13 +27,11 @@ app.set('views', path.join(__dirname, '../views'))
 
 // Config Server
 app.use(express.static(path.join(__dirname, '../public')))
-app.use(express.static(path.join(__dirname, '../uploads')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 app.use(allowCrossTokenHeader)
-app.use(multer({dest: path.join(__dirname, '../uploads/face')}))
 
 require('./initializers/routes')(app)
 
