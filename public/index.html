@@ -1,15 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+  <meta charset="UTF-8">
+  <title>Document</title>
 </head>
 <body>
-	<div id="app">
-    <h1>Assistance Control App</h1>
-		<a href="/users/list">Users List</a>
-    <hr>
-    <a href="/test">Face API - Identify</a>
-	</div>
+  <p>Scraper</p>
+
+  <div>
+    <input id="textContent" type="text" name="keyword" placeholder="ingresa una palabra">
+    <button id="btnSearch" >Buscar</button>
+
+    <div>
+      <p id="msg"></p>
+    </div>
+  </div>
+  <script src="./js/vendor/jquery-3.1.0.min.js"></script>
+  <script>
+
+    let URI = 'http://localhost:5000'
+
+    let $btnSearch = document.querySelector('#btnSearch')
+    let $msg = document.querySelector('#msg')
+
+    $btnSearch.addEventListener('click', () => {
+      $msg.innerText = 'buscando...'
+      let $textContent = $('#textContent').val()
+      $.ajax({
+        url: `${URI}/api/scraper/start`,
+        data: {
+          keyword: $textContent
+        },
+        method: 'post',
+        success: function (data) {
+          $msg.innerText = ''
+          console.log('DATA')
+          console.log(data)
+
+          data.data.forEach((article) => {
+            if (article) {
+              // find email image
+              $msg.innerHTML += article.articles[0].content
+            }
+          })
+
+          let emails = $('.whois_email')
+          for (var i = emails.length - 1; i >= 0; i--) {
+            let srcImage = $('.whois_email')[i].src
+            if (srcImage) {
+             srcImage = $('.whois_email')[i].src.split(window.location.origin)[1]
+             $('.whois_email')[i].src = `https://www.whois.com${srcImage}`
+            }
+          }
+        },
+        error: function (err) {
+          console.log('Error')
+          console.log(err)
+        }
+      })
+    })
+
+  </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-# QR Assistance Service Register
+# Scrap
 
 A highly scalable and simple boilerplate for server apps.
 

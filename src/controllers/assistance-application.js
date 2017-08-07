@@ -1,83 +1,218 @@
-import Users from '/models/users'
-// import {NotificationTrigger} from '../utils'
-// var io = require('socket.io')(4444)
+var debug = require('debug')('riqra-service-partner:controller-ads')
+var sql = require('../initializers/knex')
+var Promise = require('bluebird')
 
-// Ejecutar funcion de enviar notificacion
-// var notificatePush = new NotificationTrigger(io)
-// notificatePush.connect()
+// Import the dependencies
+const cheerio = require("cheerio")
+const req = require("tinyreq")
+const whois = require('whois-json')
+const GoogleScraper = require('google-scraper')
+const scrapeIt = require("scrape-it")
 
-const debug = require('debug')('assistance-service:controllers:Assistance')
+// Find on google by keyword
+function getScraperPile(urls, keyword) {
+  return new Promise((resolve, reject) => {
+    let elements = urls.map((elementURL, index) => {
+      let urlItem = elementURL
 
-class AssistanceOverview {
-  checkQR (req, res) {
-    let codeQR = req.body.codeQR
+      let web = scrapeWeb(urlItem, {content: "html"})
+        .then((data) => {
+          // filtrar la palabra que busco
+          let text = data.content
+          let word = keyword
+          let result = getMatches(word, text)
 
-    Users.findOne({'_id': codeQR}, (err, user) => {
-      if (err) {
-        return res.status(404).json({
-          status: 'not_found',
-          message: 'Código QR no válido'
-        })
-      }
-
-      if (user !== null) {
-        // si el usuario fue encontrado
-        if (user.statusConnectQR === false) {
-          // cambiar su estado a true
-          user.statusConnectQR = true
-          user.horaEntrada = new Date()
-
-          user.save((err, userSaved) => {
-            if (err) {
-              return debug(err)
+          if (result.length !== 0) {
+            let element = {
+              url: urlItem,
+              coincidencia: result
             }
-
-            // Evento socket.io
-            // if (user.statusConnectQR === true && user.statusConnectFace === true) {
-            //   notificatePush.notificar(userSaved)
-            // }
-
-            res.status(200).json({
-              status: 'new_check',
-              message: 'QR OK - ¡Usuario Check!'
-            })
-          })
-        } else {
-          res.status(200).json({
-            status: 'user_checked',
-            message: 'El usuario ya esta marcado'
-          })
-        }
-      } else {
-        res.status(404).json({
-          status: 'not_found',
-          message: 'Código QR no válido'
-        })
-      }
-    })
-  }
-
-  reset (req, res) {
-    Users.find((err, users) => {
-      if (err) {
-        return debug(err)
-      }
-
-      for (var i = 0; i <= users.length - 1; i++) {
-        users[i].statusConnectQR = false
-        users[i].statusConnectFace = false
-        users[i].save((err, result) => {
-          if (err) {
-            return debug(err)
+            return element
           }
         })
+        .catch(function (e) {
+          debug('Error')
+          console.log(e)
+        })
+        return web
+    })
+
+    // resolve array promise
+    Promise.all(elements)
+    .then((result) => {
+      resolve(result)
+    })
+    .catch(function(e) {
+      debug('Error')
+      reject(e)
+    })
+  })
+}
+
+// Define the scrape function
+function scrapeWeb(url, data) {
+  return new Promise ((resolve, reject) => {
+    // 1. Create the request
+    req(url, (err, body) => {
+      if (err) { return reject(err); }
+
+      // 2. Parse the HTML
+      let $ = cheerio.load(body),
+      pageData = {};
+
+      // 3. Extract the data
+      Object.keys(data).forEach(k => {
+          pageData[k] = $(data[k]).text()
+      });
+
+      // 4. Extract link
+      let anchors = $('a')
+      let links = []
+
+      $(anchors).each(function(i, link) {
+        let item = {}
+        item['name'] = $(link).text()
+
+         if ($(link).attr('href') !== undefined &&
+            $(link).attr('href') !== null) {
+
+           if ($(link).attr('href').indexOf('http') === -1) {
+             item['link'] = url + $(link).attr('href')
+           } else {
+             item['link'] = $(link).attr('href')
+           }
+
+           links.push(item)
+         }
+
+      });
+
+      pageData['links'] = links
+
+      // Send the data in the callback
+      resolve(pageData)
+    });
+  })
+}
+
+function getMatches(needle, haystack) {
+    var myRe = new RegExp("\\b" + needle + "\\b((?!\\W(?=\\w))|(?=\\s))", "gi"),
+      myArray, myResult = []
+    while ((myArray = myRe.exec(haystack)) !== null) {
+      myResult.push(myArray.index)
+    }
+    return myResult
+}
+
+function getWhois (urlDomain) {
+  return new Promise ((resolve, reject) => {
+    scrapeIt(`https://www.whois.com/whois/${urlDomain}`, {
+      // Fetch the articles
+      articles: {
+        listItem: ".whois_main_column",
+        data: {
+          content: {
+            selector: ".df-block-raw",
+            how: "html"
+          }
+        }
+      }
+    }, (err, page) => {
+      if (err) {
+        return reject(err)
       }
 
-      res.status(200).json({
-        status: 'users - code QR - reset'
+      return resolve(page)
+
+    });
+  })
+}
+
+class AdsController {
+  getStart(req, res) {
+
+    let keyword = req.body.keyword || 'adidas'
+
+    const options = {
+      keyword: keyword,
+      language: "pe",
+      tld:"com.pe",
+      results: 10
+    };
+
+    const scraper = new GoogleScraper(options);
+    let arrayToWhois = []
+
+    debug('Scraping GOOGLE >> Searching: ', keyword)
+
+    let data = scraper.getGoogleLinks
+    .then(function(value) {
+      debug('Scraping GOOGLE >> Searching End')
+      debug('Scraping webs >> Searching...')
+
+      // Extract some data from website
+      console.log(value)
+      let urls = value
+
+      // Scraping all the websites
+      return Promise.props({
+        data: getScraperPile(urls, keyword)
+      })
+      .then((result) => {
+        let webCoincidence = result.data
+        debug('Webs Coincidence keyword', result)
+
+        debug('find websites whois ...')
+
+         let promisesWhois = webCoincidence.map((element) => {
+          if (element) {
+            let urlPretty = element.url.split('://')[1].split('/')[0]
+            let urlDomain = urlPretty
+            let processWhois = getWhois(urlDomain)
+
+            return processWhois
+          }
+        })
+
+        return promisesWhois
+
+      })
+      .catch(function(e) {
+        debug('Error')
+        console.log(e);
       })
     })
+    .catch(function(e) {
+      console.log(e);
+    })
+
+    // Scraping all the websites
+    Promise.props({
+      data: data
+    })
+    .then((result) => {
+      debug('TODO', result.data)
+
+      Promise.all(result.data)
+      .then((result) => {
+
+        res.status(200).json({
+          data: result
+        })
+      })
+      .catch((error) => {
+        debug('error <<<<')
+        console.log('error', error)
+        return error
+      })
+
+    })
+    .catch(function(e) {
+      debug('Error')
+      console.log(e);
+    })
+
   }
 }
 
-export default AssistanceOverview
+export default AdsController

@@ -21,7 +21,7 @@
 		"public": "shx rm -rf public && shx mkdir public",
 		"dist": "shx rm -rf dist && shx mkdir dist",
 		"build": "cross-env NODE_ENV=production babel src -d dist",
-    "env:production": "shx cp .env.example .env.production",
+		"env:production": "shx cp .env.example .env.production",
 		"start": "DEBUG=assistance-service:* NODE_ENV=production node server.js",
 		"deploy:production": "fly production"
 	},
@@ -51,6 +51,7 @@
 		"express-jwt": "^5.3.0",
 		"express-session": "^1.15.3",
 		"flat": "^2.0.1",
+		"google-scraper": "^1.1.2",
 		"graphql": "^0.9.6",
 		"graphql-date": "^1.0.3",
 		"graphql-docs": "^0.2.0",
@@ -78,10 +79,12 @@
 		"redis": "latest",
 		"require-self-ref": "^2.0.1",
 		"rootpath": "^0.1.2",
+		"scrape-it": "^3.3.2",
 		"sinon": "^2.3.4",
 		"snake-case": "^2.1.0",
 		"socket.io": "^2.0.3",
-		"uuid": "3.0.1"
+		"uuid": "3.0.1",
+		"whois-json": "^1.2.2"
 	},
 	"devDependencies": {
 		"@riqra/committer": "^1.1.6",
