@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Scraper</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-  <p>Scraper</p>
 
-  <div>
-    <input id="textContent" type="text" name="keyword" placeholder="ingresa una palabra">
-    <button id="btnSearch" >Buscar</button>
-
+  <div class="container">
+    <h2>Scraper</h2>
+    <input id="textContent" class="form-control" type="text" name="keyword" placeholder="ingresa una palabra">
+    <br>
+    <button id="btnSearch" class="btn btn-success">Buscar</button>
+    <br>
     <div>
-      <p id="msg"></p>
+      <p id="msg" class=""></p>
     </div>
   </div>
   <script src="./js/vendor/jquery-3.1.0.min.js"></script>
