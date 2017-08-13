@@ -1,5 +1,4 @@
 var debug = require('debug')('riqra-service-partner:controller-ads')
-var sql = require('../initializers/knex')
 var Promise = require('bluebird')
 
 // Import the dependencies
